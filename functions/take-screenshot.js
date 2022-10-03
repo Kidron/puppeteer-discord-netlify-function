@@ -13,12 +13,13 @@ client.on('ready',() => {
 
 exports.handler = async (event, context) => {
 
+console.log(process.env.TOKEN);
 
     const browser = await chromium.puppeteer.launch({
-        executablePath: await chromium.executablePath,
         args: chromium.args,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
         headless: chromium.headless,
-    });
+      });
 
       const page = await browser.newPage();
 
