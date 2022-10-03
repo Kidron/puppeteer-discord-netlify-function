@@ -9,20 +9,24 @@ const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
 
 exports.handler = async (event, context) => {
 
+    const browser = await chromium.puppeteer.launch({
+        args: chromium.args,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
+        headless: chromium.headless,
+      });
+
+      const page = await browser.newPage();
+
 client.login(process.env.TOKEN)
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
 
 
-        const browser = await chromium.puppeteer.launch({
-          args: chromium.args,
-          executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
-          headless: chromium.headless,
-        });
+
 
     try {
-        const page = await browser.newPage();
+
         await page.goto('https://multidollar.company/');
         await page.screenshot({ path: 'currentBeneQueue.png' });
       
@@ -37,7 +41,9 @@ client.on('ready', async () => {
             })
         }
     } catch (error) {
+
         await browser.close()
+        
             return {
             statusCode: 400,
             body: JSON.stringify({
@@ -45,5 +51,7 @@ client.on('ready', async () => {
             })
         }
     }
+    
 }
+
 )}
