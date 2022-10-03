@@ -12,10 +12,9 @@ exports.handler = async (event, context) => {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
     
-    setInterval(function() {
-  
-      (async () => {
-        const browser = await puppeteer.launch({
+    setInterval(async function() {
+
+        const browser = await chromium.puppeteer.launch({
           args: chromium.args,
           executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
           headless: chromium.headless,
@@ -27,7 +26,7 @@ client.on('ready', () => {
         await browser.close();
   
         client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['currentBeneQueue.png']});
-      })();
+
       console.log('done');
     }, 60 * 200);
   
