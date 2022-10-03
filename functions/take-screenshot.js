@@ -48,7 +48,7 @@ client.on('ready', () => {
         })();
       }
 
-  }
+  })
 
 
 // exports.handler = async (event, context) => {
