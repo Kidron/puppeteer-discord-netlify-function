@@ -20,6 +20,8 @@ client.on('ready', async () => {
           executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
           headless: chromium.headless,
         });
+
+    try {
         const page = await browser.newPage();
         await page.goto('https://multidollar.company/');
         await page.screenshot({ path: 'currentBeneQueue.png' });
@@ -27,14 +29,21 @@ client.on('ready', async () => {
         await browser.close();
   
         client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['currentBeneQueue.png']});
-    
 
-
-
-return {
-    statusCode: 200,
-    body: JSON.stringify({
-      status: 'Ok'
-    })
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+              status: 'Ok'
+            })
+        }
+    } catch (error) {
+        await browser.close()
+            return {
+            statusCode: 400,
+            body: JSON.stringify({
+                error
+            })
+        }
+    }
 }
-})}
+)}
