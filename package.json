@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "esbuild take-screenshot.js --bundle --outfile=out.js"
+  },
   "devDependencies": {
     "puppeteer": "^18.0.5"
   },
@@ -6,6 +9,7 @@
     "chrome-aws-lambda": "^10.1.0",
     "discord.js": "^14.5.0",
     "dotenv": "^16.0.3",
+    "esbuild": "^0.15.10",
     "puppeteer-core": "^10.1.0"
   }
 }
