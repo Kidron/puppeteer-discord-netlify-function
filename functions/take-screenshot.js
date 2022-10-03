@@ -9,7 +9,9 @@ const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
 
 exports.handler = async (event, context) => {
 
-client.on('ready', () => {
+client.login(process.env.TOKEN)
+
+client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
 
 
@@ -25,18 +27,14 @@ client.on('ready', () => {
         await browser.close();
   
         client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['currentBeneQueue.png']});
+    
 
 
-    }
-
-client.login(process.env.TOKEN)
 
 return {
     statusCode: 200,
     body: JSON.stringify({
       status: 'Ok'
     })
-  }
-  
-
 }
+})}
