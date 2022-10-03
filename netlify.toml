@@ -1,3 +1,9 @@
 [functions]
   directory = "functions"
   node_bundler = "esbuild"
+
+[context.production.environment]
+
+TOKEN=ODIyMTc5OTg3NTc4NTUyMzQy.YFOgyA.ykPBOg8SbFBzoFP27wOWONpYPi4
+WHAT_CHANNELID="822183631064662037"
+CHROME_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
