@@ -9,6 +9,15 @@ const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
 
 exports.handler = async (event, context) => {
 
+    client.login(process.env.TOKEN)
+
+    client.on('ready',() => {
+        console.log(`Logged in as ${client.user.tag}!`)
+    }
+
+    )
+
+
     const browser = await chromium.puppeteer.launch({
         args: chromium.args,
         executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
@@ -17,41 +26,31 @@ exports.handler = async (event, context) => {
 
       const page = await browser.newPage();
 
-client.login(process.env.TOKEN)
-
-client.on('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}!`)
-
-
-
-
     try {
-
-        await page.goto('https://multidollar.company/');
-        await page.screenshot({ path: 'currentBeneQueue.png' });
-      
-        await browser.close();
-  
-        client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['currentBeneQueue.png']});
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-              status: 'Ok'
-            })
-        }
-    } catch (error) {
-
-        await browser.close()
         
+            await page.goto('https://multidollar.company/');
+            await page.screenshot({ path: './images/currentBeneQueue.png' });
+          
+            await browser.close();
+        
+            client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['./images/currentBeneQueue.png']});
+
+            console.log("This code ran");
+
             return {
-            statusCode: 400,
-            body: JSON.stringify({
-                error
-            })
+                statusCode: 200,
+                body: JSON.stringify({
+                  status: 'Ok'
+                })
+            }
+
+
+    } catch (error) {
+        console.log(error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({error: 'Failed'}),
         }
     }
-    
-}
 
-)}
+}
