@@ -7,15 +7,11 @@ dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
 
+client.on('ready',() => {
+    console.log(`Logged in as ${client.user.tag}!`)
+})
+
 exports.handler = async (event, context) => {
-
-    client.login(process.env.TOKEN)
-
-    client.on('ready',() => {
-        console.log(`Logged in as ${client.user.tag}!`)
-    }
-
-    )
 
 
     const browser = await chromium.puppeteer.launch({
@@ -33,9 +29,11 @@ exports.handler = async (event, context) => {
           
             await browser.close();
         
-            client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['./images/currentBeneQueue.png']});
+            client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:");
+            // Split into another send command - pic wouldn't send as one
+            client.channels.cache.get(WHAT_CHANNEL).send({files: ['./images/currentBeneQueue.png']});
 
-            console.log("This code ran");
+            console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
             return {
                 statusCode: 200,
@@ -52,5 +50,6 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({error: 'Failed'}),
         }
     }
-
 }
+client.login(process.env.TOKEN)
+
