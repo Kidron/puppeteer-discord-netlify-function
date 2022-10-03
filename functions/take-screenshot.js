@@ -18,7 +18,7 @@ client.on('ready', () => {
         const browser = await puppeteer.launch({
           args: chromium.args,
           executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
-          headless: true,
+          headless: chromium.headless,
         });
         const page = await browser.newPage();
         await page.goto('https://multidollar.company/');
