@@ -1,4 +1,8 @@
 const chromium = require('chrome-aws-lambda');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 
 exports.handler = async (event, context) => {
 
