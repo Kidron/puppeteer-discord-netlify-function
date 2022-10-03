@@ -93819,7 +93819,7 @@ client.on("ready", () => {
 exports.handler = async (event, context) => {
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
-    executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
+    executablePath: await chromium.executablePath,
     headless: chromium.headless
   });
   const page = await browser.newPage();
