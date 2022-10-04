@@ -24,8 +24,6 @@ exports.handler = async (event, context) => {
 
     try {
 
-        // console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
-
         
             await page.goto('https://multidollar.company/');
             const screenshot = await page.screenshot();
@@ -36,7 +34,7 @@ exports.handler = async (event, context) => {
             // Split into another send command - pic wouldn't send as one
             // client.channels.cache.get(WHAT_CHANNEL).send({files: [screenshot]});
 
-            // console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
+            console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
             return {
                 statusCode: 200,
@@ -52,7 +50,7 @@ exports.handler = async (event, context) => {
             statusCode: 500,
             body: JSON.stringify({error: 'Failed'}),
         }
-    }
+    }   
 }
 client.login(process.env.TOKEN)
 
