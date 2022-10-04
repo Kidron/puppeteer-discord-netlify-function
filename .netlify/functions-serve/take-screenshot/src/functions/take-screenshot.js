@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
+const whatSite = 'https://multidollar.company/';
 
 client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
@@ -23,14 +24,16 @@ exports.handler = async (event, context) => {
       const page = await browser.newPage();
 
     try {
-
         
-            await page.goto('https://multidollar.company/');
+            await page.goto(whatSite);
             const screenshot = await page.screenshot();
-          
+            const numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
+            console.log(numberInQueue);
+            const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
+            console.log(blizzETA);
             await browser.close();
         
-            await client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: [screenshot]});
+            await client.channels.cache.get(WHAT_CHANNEL).send(`${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
 
             console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
