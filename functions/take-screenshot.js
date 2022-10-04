@@ -13,7 +13,7 @@ client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
-const handler = async (event, context) => {
+exports.handler = async (event, context) => {
 
     const browser = await chromium.puppeteer.launch({
         args: chromium.args,
@@ -54,6 +54,4 @@ const handler = async (event, context) => {
         }
     }   
 }
-client.login(process.env.TOKEN)
-
-module.exports.handler = handler;
+client.login(process.env.TOKEN);
