@@ -13,8 +13,6 @@ client.on('ready',() => {
 
 exports.handler = async (event, context) => {
 
-console.log(process.env.TOKEN);
-
     const browser = await chromium.puppeteer.launch({
         args: chromium.args,
         defaultViewport: chromium.defaultViewport,
@@ -25,15 +23,18 @@ console.log(process.env.TOKEN);
       const page = await browser.newPage();
 
     try {
+
+        console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
+
         
             await page.goto('https://multidollar.company/');
             await page.screenshot({ path: './images/currentBeneQueue.png' });
           
             await browser.close();
         
-            client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:");
+           await client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['./images/currentBeneQueue.png']});
             // Split into another send command - pic wouldn't send as one
-            client.channels.cache.get(WHAT_CHANNEL).send({files: ['./images/currentBeneQueue.png']});
+            // client.channels.cache.get(WHAT_CHANNEL).send({files: ['./images/currentBeneQueue.png']});
 
             console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
