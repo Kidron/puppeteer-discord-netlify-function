@@ -2,3 +2,6 @@
   directory = "functions"
   node_bundler = "esbuild"
   external_node_modules = ["chrome-aws-lambda"]
+
+[functions."take-screenshot"]
+  schedule = "*/15 * * * *"

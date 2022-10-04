@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const dotenv = require('dotenv');
 
+// const { schedule } = require('@netlify/functions')
+
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
@@ -11,7 +13,7 @@ client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
-exports.handler = async (event, context) => {
+const handler = async (event, context) => {
 
     const browser = await chromium.puppeteer.launch({
         args: chromium.args,
@@ -54,3 +56,4 @@ exports.handler = async (event, context) => {
 }
 client.login(process.env.TOKEN)
 
+module.exports.handler = handler;
