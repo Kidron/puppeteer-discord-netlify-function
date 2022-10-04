@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
+const whatSite = 'https://multidollar.company/';
 
 client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
@@ -24,7 +25,7 @@ exports.handler = async (event, context) => {
 
     try {
         
-            await page.goto('https://multidollar.company/');
+            await page.goto(whatSite);
             const screenshot = await page.screenshot();
           
             await browser.close();
