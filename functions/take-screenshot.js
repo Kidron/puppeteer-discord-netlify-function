@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
 
         
             await page.goto('https://multidollar.company/');
-            const screenshot = await page.screenshot({ path: 'currentBeneQueue.png' });
+            const screenshot = await page.screenshot();
           
             await browser.close();
         
