@@ -3,8 +3,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const dotenv = require('dotenv');
 
-// const { schedule } = require('@netlify/functions')
-
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
@@ -25,7 +23,6 @@ exports.handler = async (event, context) => {
       const page = await browser.newPage();
 
     try {
-
         
             await page.goto('https://multidollar.company/');
             const screenshot = await page.screenshot();
@@ -33,8 +30,6 @@ exports.handler = async (event, context) => {
             await browser.close();
         
             await client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: [screenshot]});
-            // Split into another send command - pic wouldn't send as one
-            // client.channels.cache.get(WHAT_CHANNEL).send({files: [screenshot]});
 
             console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
