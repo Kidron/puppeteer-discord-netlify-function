@@ -16,6 +16,7 @@ exports.handler = async (event, context) => {
 console.log(process.env.TOKEN);
 
     const browser = await chromium.puppeteer.launch({
+        ignoreDefaultArgs: ['--disable-extensions'],
         args: chromium.args,
         executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
         headless: chromium.headless,
