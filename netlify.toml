@@ -3,5 +3,6 @@
   node_bundler = "esbuild"
   external_node_modules = ["chrome-aws-lambda"]
 
-[template.environment]
-  AWS_LAMBDA_JS_RUNTIME = "Node runtime (enter \"nodejs12.x\")"
+
+[build.environment]
+  AWS_LAMBDA_JS_RUNTIME = "nodejs12.x"
