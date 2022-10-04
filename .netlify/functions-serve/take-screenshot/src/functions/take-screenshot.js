@@ -28,11 +28,11 @@ exports.handler = async (event, context) => {
 
         
             await page.goto('https://multidollar.company/');
-            await page.screenshot({ path: 'currentBeneQueue.png' });
+            const screenshot = await page.screenshot({ path: 'currentBeneQueue.png' });
           
             await browser.close();
         
-          client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: ['currentBeneQueue.png']});
+          client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", screenshot);
             // Split into another send command - pic wouldn't send as one
             // client.channels.cache.get(WHAT_CHANNEL).send({files: ['./images/currentBeneQueue.png']});
 
