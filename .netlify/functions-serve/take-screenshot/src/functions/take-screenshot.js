@@ -32,9 +32,9 @@ exports.handler = async (event, context) => {
           
             await browser.close();
         
-          client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", screenshot);
+          client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: [screenshot]});
             // Split into another send command - pic wouldn't send as one
-            // client.channels.cache.get(WHAT_CHANNEL).send({files: ['./images/currentBeneQueue.png']});
+            // client.channels.cache.get(WHAT_CHANNEL).send({files: [screenshot]});
 
             // console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
