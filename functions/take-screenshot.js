@@ -32,7 +32,7 @@ exports.handler = async (event, context) => {
           
             await browser.close();
         
-          client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: [screenshot]});
+            await client.channels.cache.get(WHAT_CHANNEL).send("Current Benediction Queue:", {files: [screenshot]});
             // Split into another send command - pic wouldn't send as one
             // client.channels.cache.get(WHAT_CHANNEL).send({files: [screenshot]});
 
