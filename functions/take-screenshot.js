@@ -6,16 +6,13 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
-// const whatSite = 'https://multidollar.company/';
+const whatSite = 'https://multidollar.company/';
 
 client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
 exports.handler = async (event, context) => {
-
-    const whatSite = 'https://multidollar.company/';
-
 
     const browser = await chromium.puppeteer.launch({
         args: chromium.args,
@@ -55,7 +52,7 @@ exports.handler = async (event, context) => {
 
 
     } catch (error) {
-        
+
         await browser.close();
         console.log(error);
         return {
