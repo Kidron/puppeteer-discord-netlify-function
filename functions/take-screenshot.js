@@ -32,7 +32,6 @@ exports.handler = async (event, context) => {
             numberInQueue = parseInt(numberInQueue);
             console.log(typeof numberInQueue)
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2) > span', (el) => el.innerText);
-            await browser.close();
 
             if(numberInQueue > 0 || numberInQueue < 15000) {
 
@@ -42,6 +41,8 @@ exports.handler = async (event, context) => {
             } else {
                 console.log(`Queue less than 1`);
             }
+
+            await browser.close();
 
             return {
                 statusCode: 200,
