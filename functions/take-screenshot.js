@@ -24,7 +24,6 @@ exports.handler = async (event, context) => {
       const page = await browser.newPage();
 
     try {
-        
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
             
