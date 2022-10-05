@@ -27,9 +27,11 @@ exports.handler = async (event, context) => {
         
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
-            const numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
+            let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
+            numberInQueue = numberInQueue.replace(/\D/g,'');
+            numberInQueue = parseInt(numberInQueue);
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
-            
+
             await browser.close();
 
 
