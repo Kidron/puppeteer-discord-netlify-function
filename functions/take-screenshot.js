@@ -27,24 +27,20 @@ exports.handler = async (event, context) => {
         
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
-            let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
-            numberInQueue = numberInQueue.replace(/\D/g,'');
-            numberInQueue = parseInt(numberInQueue);
-            console.log(typeof numberInQueue)
-            const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
-            await browser.close();
+            
+            const numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1) > span', (el) => el.innerText);
+            const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2) > span', (el) => el.innerText);
 
-            if(numberInQueue > 0 || numberInQueue < 15000) {
+            if(numberInQueue === null) {
+                console.log(`Queue less than 1 - DO NOTHING`);
+            } else if(numberInQueue > 0) {
 
-                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
+                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n Blizzard ETA: ${blizzETA}`, {files: [screenshot]});
 
                 console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
-            } else {
-                console.log(`Queue less than 1`);
+
             }
-
-        
-
+            await browser.close();
 
             return {
                 statusCode: 200,
