@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const WHAT_CHANNEL = process.env.WHAT_CHANNELID;
-const whatSite = 'https://multidollar.company/';
+// const whatSite = 'https://multidollar.company/';
 
 client.on('ready',() => {
     console.log(`Logged in as ${client.user.tag}!`)
@@ -14,20 +14,20 @@ client.on('ready',() => {
 
 exports.handler = async (event, context) => {
 
+    const whatSite = 'https://multidollar.company/';
+
+
+    const browser = await chromium.puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
+        headless: chromium.headless,
+      });
+
+      const page = await browser.newPage();
 
 
     try {
-
-
-        const browser = await chromium.puppeteer.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
-            headless: chromium.headless,
-          });
-    
-          const page = await browser.newPage();
-
           
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
