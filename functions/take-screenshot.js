@@ -29,6 +29,8 @@ exports.handler = async (event, context) => {
             const screenshot = await page.screenshot();
             const numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
+            
+            await browser.close();
 
 
             if(numberInQueue === null) {
@@ -40,7 +42,6 @@ exports.handler = async (event, context) => {
                 console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
             }
-            await browser.close();
         
 
 
