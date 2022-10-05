@@ -55,6 +55,8 @@ exports.handler = async (event, context) => {
 
 
     } catch (error) {
+        
+        await browser.close();
         console.log(error);
         return {
             statusCode: 500,
