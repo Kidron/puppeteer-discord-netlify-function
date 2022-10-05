@@ -32,17 +32,19 @@ exports.handler = async (event, context) => {
             numberInQueue = parseInt(numberInQueue);
             console.log(typeof numberInQueue)
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2) > span', (el) => el.innerText);
+            await browser.close();
 
             if(numberInQueue > 0 || numberInQueue < 15000) {
 
-                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \nBlizzard ETA: ${blizzETA}`, {files: [screenshot]});
+                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
 
                 console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
             } else {
                 console.log(`Queue less than 1`);
             }
 
-            await browser.close();
+        
+
 
             return {
                 statusCode: 200,
@@ -53,7 +55,6 @@ exports.handler = async (event, context) => {
 
 
     } catch (error) {
-        await browser.close();
         console.log(error);
         return {
             statusCode: 500,
