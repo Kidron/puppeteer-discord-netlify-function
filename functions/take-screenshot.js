@@ -27,15 +27,24 @@ exports.handler = async (event, context) => {
         
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
-            const numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
-            console.log(numberInQueue);
+            let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
+            numberInQueue = numberInQueue.replace(/\D/g,'');
+            numberInQueue = parseInt(numberInQueue);
+            console.log(typeof numberInQueue)
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
-            console.log(blizzETA);
             await browser.close();
-        
-            await client.channels.cache.get(WHAT_CHANNEL).send(`${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
 
-            console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
+            if(numberInQueue > 0 || numberInQueue < 15000) {
+
+                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
+
+                console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
+            } else {
+                console.log(`Queue less than 1`);
+            }
+
+        
+
 
             return {
                 statusCode: 200,
