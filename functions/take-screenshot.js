@@ -27,11 +27,11 @@ exports.handler = async (event, context) => {
         
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
-            let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1) > span', (el) => el.innerText);
-            // numberInQueue = numberInQueue.replace(/\D/g,'');
-            // numberInQueue = parseInt(numberInQueue);
-            // console.log(typeof numberInQueue)
-            const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2) > span', (el) => el.innerText);
+            let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
+            numberInQueue = numberInQueue.replace(/\D/g,'');
+            numberInQueue = parseInt(numberInQueue);
+            console.log(typeof numberInQueue)
+            const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
             await browser.close();
 
             if(numberInQueue > 0 || numberInQueue < 15000) {
