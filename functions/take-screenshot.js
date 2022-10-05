@@ -28,8 +28,8 @@ exports.handler = async (event, context) => {
             await page.goto(whatSite);
             const screenshot = await page.screenshot();
             let numberInQueue = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(1)', (el) => el.innerText);
-            numberInQueue = numberInQueue.replace(/\D/g,'');
-            numberInQueue = parseInt(numberInQueue);
+            numberInQueue.replace(/\D/g,'');
+            parseInt(numberInQueue);
             const blizzETA = await page.$eval('body > section:nth-child(1) > div > h2 > div:nth-child(2)', (el) => el.innerText);
 
             await browser.close();
@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
                 console.log(`Queue less than 1 - DO NOTHING`);
             } else if(numberInQueue > 0) {
 
-                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n Blizzard ETA: ${blizzETA}`, {files: [screenshot]});
+                await client.channels.cache.get(WHAT_CHANNEL).send(`Number in queue: ${numberInQueue} \n${blizzETA}`, {files: [screenshot]});
 
                 console.log(`Message sent to Discord ${WHAT_CHANNEL}`);
 
