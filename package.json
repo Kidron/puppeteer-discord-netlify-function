@@ -1,11 +1,8 @@
 {
-  "devDependencies": {
-    "puppeteer": "^18.0.5"
-  },
   "dependencies": {
-    "chrome-aws-lambda": "^9.1.0",
+    "@sparticuz/chromium": "^106.0.2",
     "discord.js": "^12.5.3",
     "dotenv": "^16.0.3",
-    "puppeteer-core": "^9.1.1"
+    "puppeteer-core": "^18.2.1"
   }
 }
