@@ -2,5 +2,5 @@
   directory = "functions"
 
 
-[functions."server-queue"]
-  schedule = "*/5 * * * *"
+# [functions."server-queue"]
+#   schedule = "*/5 * * * *"
